@@ -1,12 +1,11 @@
 # Parser for Edvibe
 
-___
 The application was created in winfdows 10. Tested on win10 and win11.
 The essence of the graphical application is the transfer of
 material from various Internet sources
-(skyeng, test English, perfect enslish grammar and etc...).
+(skyeng, test English, perfect enslish grammar and etc...).<br>
 The conversion of html markup from the site to the format
-for edvibe is automatic. Then there will be instructions on how to quickly transfer the material.
+for edvibe is automaticly. Then there will be instructions on how to quickly transfer the material.
 The application is designed for English language teachers working on the edvibe platform
 
 - https://skyeng.ru/
@@ -17,7 +16,7 @@ The application is designed for English language teachers working on the edvibe 
 ## Features
 
 * Saves 95% of your time
-* Automatically parse and create a template in seconds
+* Momently automatically parse and create a template
 * Parsing 4 sites
 * All tasks belong to the `Execise` or `Grammar` group
 
@@ -38,19 +37,26 @@ The application is designed for English language teachers working on the edvibe 
 
 ## A simple guide
 
-Let's start
+### General steps
 
 1. Select site name from the menu
 2. Select one of the formats for transferring the task from the site to Edvibe
 3. Copy the HTML code and paste into the input window
-    * Set the course for a piece of the task, more can be
+    * Open devtools: press Ctrl+Shift+C or right mouse button and select Explore
+    * Select box HTML code according to instructions
     * Copy the code that covers the job as much as possible
     * Paste in input window
 4. Press Input. You will receive a text in accordance with your task.
 
+---
+
 * Appropriate actions are required for each site and mode.
 * Select the entire block as follows. Press Ctrl+Shift+C or right mouse button and select Explore
 * You have open devtools with HTML code
+
+## Video Instruction
+
+* https://drive.google.com/file/d/18ylkxTWSF1tfmrYhSwSNUZfQaJt1kCmb/view?usp=sharing
 
 ## Skyeng
 
@@ -60,7 +66,8 @@ Let's start
 - Select all correct option
 - Copy block outerHTML as in the picture and insert in open input-window
 - Enter *Input* and get result
-  ![Skyeng](example/skyeng/Skyeng%201.choose_the_correct_option.png "choose_the_correct_option")
+
+![Skyeng](example/skyeng/Skyeng%201.choose_the_correct_option.png "choose_the_correct_option")
 
 ___
 
@@ -70,7 +77,8 @@ ___
 - Select all correct option in __test__
 - Copy block outerHTML as in the picture and insert in open input-window
 - Enter *Input* and get result
-  ![Skyeng](example/skyeng/Skyeng%202.choose_the_correct_option_from_test.png "choose_the_correct_option_from_test")
+
+![Skyeng](example/skyeng/Skyeng%202.choose_the_correct_option_from_test.png "choose_the_correct_option_from_test")
 
 ___
 
@@ -93,7 +101,8 @@ ___
   However, if the text is very large, then the first option is preferable
 - Copy block outerHTML as in the picture and insert in open input-window
 - Enter *Input* and get result
-  ![Skyeng](example/skyeng/Skyeng%204.type_the_correct_answer.png "type_the_correct_answer")
+
+![Skyeng](example/skyeng/Skyeng%204.type_the_correct_answer.png "type_the_correct_answer")
 
 ___
 
@@ -104,7 +113,8 @@ ___
 - Copy block outerHTML as in the picture and insert in open input-window
 - Enter *Input* and get result
 - If you get not full words, try to take a bigger piece of code HTML
-  ![Skyeng](example/skyeng/Skyeng%205.match_words.png "match_words")
+
+![Skyeng](example/skyeng/Skyeng%205.match_words.png "match_words")
 
 ___
 
@@ -118,7 +128,8 @@ ___
 - Enter *Input* and get result
 - You get correct template for Edvibe without an `*`.
   You will need to mark the correct answers with an `*` yourself
-  ![TestEnglish](example/test_english/TestEnglish%201.choose_the_correct_option.png "choose_the_correct_option")
+
+![TestEnglish](example/test_english/TestEnglish%201.choose_the_correct_option.png "choose_the_correct_option")
 
 ---
 
@@ -129,8 +140,9 @@ ___
 - Copy block outerHTML as in the picture and insert in open input-window
 - Need copy all code HTML
 - Enter *Input* and get result
-  ![TestEnglish](example/test_english/TestEnglish%202.1.choose_from_test.png "choose_from_test")
-  ![TestEnglish](example/test_english/TestEnglish%202.2.choose_from_test.png "choose_from_test")
+
+![TestEnglish](example/test_english/TestEnglish%202.1.choose_from_test.png "choose_from_test")
+![TestEnglish](example/test_english/TestEnglish%202.2.choose_from_test.png "choose_from_test")
 
 ---
 
@@ -141,8 +153,9 @@ ___
 - Copy block outerHTML as in the picture and insert in open input-window
 - Need copy all code HTML
 - Enter *Input* and get result
-  ![TestEnglish](example/test_english/TestEnglish%203.1.type_the_correct_answer.png "type_the_correct_answer")
-  ![TestEnglish](example/test_english/TestEnglish%203.2.type_the_correct_answer.png "type_the_correct_answer")
+
+![TestEnglish](example/test_english/TestEnglish%203.1.type_the_correct_answer.png "type_the_correct_answer")
+![TestEnglish](example/test_english/TestEnglish%203.2.type_the_correct_answer.png "type_the_correct_answer")
 
 ---
 
@@ -154,7 +167,8 @@ ___
 - Copy link. Example: `https://www.englisch-hilfen.de/en/...`
 - Insert in open input-window
 - Enter *Input* and get result
-  ![Englisch-Hilfen](example/englisch-hilfen/englisch-hilfen%201.choose_the_correct_option.png "choose_the_correct_option")
+
+![Englisch-Hilfen](example/englisch-hilfen/englisch-hilfen%201.choose_the_correct_option.png "choose_the_correct_option")
 
 ### Type the correct answer
 
@@ -162,7 +176,8 @@ ___
 - Click `Show answers`
 - Copy block outerHTML as in the picture and insert in open input-window
 - Enter *Input* and get result
-  ![Englisch-Hilfen](example/englisch-hilfen/englisch-hilfen%202.type_the_correct_answer.png "type_the_correct_answer")
+
+![Englisch-Hilfen](example/englisch-hilfen/englisch-hilfen%202.type_the_correct_answer.png "type_the_correct_answer")
 
 ---
 
@@ -174,11 +189,5 @@ ___
 - Click `Show` for __all__ words
 - Copy block outerHTML as in the picture and insert in open input-window
 - Enter *Input* and get result
-  ![Perfect-English](example/perfect-english/Perfect-English%201.type_the_correct_answer.png "type_the_correct_option")
 
-
-
-
-
-
-
+![Perfect-English](example/perfect-english/Perfect-English%201.type_the_correct_answer.png "type_the_correct_option")
