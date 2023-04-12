@@ -35,6 +35,7 @@ def filter_line(text):
 def valid_html(text_user):
     return bool(BeautifulSoup(text_user, 'html.parser').find())
 
+
 def find_bs4_tag(bs4_soup):
     if bs4_soup.find('p'):
         tag = 'p'
@@ -45,6 +46,7 @@ def find_bs4_tag(bs4_soup):
     else:
         tag = None
     return tag
+
 
 class Skyeng:
     """

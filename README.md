@@ -1,71 +1,77 @@
 # Parser for Edvibe
 
-The application was created in winfdows 10. Tested on win10 and win11.
-The essence of the graphical application is the transfer of
-material from various Internet sources
-(skyeng, test English, perfect enslish grammar and etc...).<br>
-The conversion of html markup from the site to the format
-for edvibe is automaticly. Then there will be instructions on how to quickly transfer the material.
-The application is designed for English language teachers working on the edvibe platform
+Приложение разработано для преподавателей английского языка, которые работают на онлайн платформе edvibe - 
+https://edvibe.com/. Парсер реализован в виде графического приложения на операционной системе windows 10 и windows 11. 
+С помощью парсера можно перенести моментально материал с других сайтов таких как skyeng.ru, test-english.com, 
+perfect-english-grammar.com, englisch-hilfen.de на платформу edvibe.com. Приложение генерирует автоматически шаблон с 
+ответами по стандартам онлайн платформы edvibe. В деталях, приложение принимает html разметку или ссылку на задание, 
+обрабатывает этот текст и создает готовый заполненный шаблон с ответами, вопросами и подсказками в зависимости от типа 
+задания и сайта, с которого вы переносите материал.
 
+Приложение работает только с выше-перечисленными сайтами. Однако приложение, при желании, легко расширяется. 
+Можно добавить в приложение новые задания, шаблоны при крупном обновлении сайтов и даже дополнительные сайты 
+с заданиями.
+
+Графическое приложение работает со следующими ссылками.
 - https://skyeng.ru/
 - https://test-english.com/
 - https://www.perfect-english-grammar.com/
 - https://www.englisch-hilfen.de/en/
+- https://edvibe.com/
 
-## Features
+## Особенности
 
-* Saves 95% of your time
-* Momently automatically parse and create a template
-* Parsing 4 sites
-* All tasks belong to the `Execise` or `Grammar` group
+* Сохраняет 95% вашего времени.
+* Моментальный перенос материала с созданием шаблона задания с ответами, вопросами и подсказками по стандарту edvibe.
+* Парсинг 4-х сайтов.
+* Все задания относятся к группе `Exercise` или `Grammar`. При желании можно расширить группу. 
+Например, добавить группу лексики, говорения и так далее. 
 
-## Drawback
+## Один из приятных отзывов преподавателя
 
-* There are bugs when the task is completely new
-* In the beginning, it's a little difficult to understand
-* The program was written by a novice in programming
-
-## One of the reviews
-
-> Thanks to this program, the process of transferring tasks from different sites has accelerated significantly!
-> The program has definitely become an indispensable assistant for me.
-> Now there is much more time for creativity during the preparation of lessons :)
-> <hr>
+> Благодаря этой программе процесс переноса задач с разных сайтов значительно ускорился!
+> Программа определенно стала для меня незаменимым помощником.
+> Теперь гораздо больше времени для творчества во время подготовки уроков. :)
+> ---
 >
-> *Elena. Teacher english language*
+> *Елена. Преподаватель английского языка*
 
-## A simple guide
+## Ссылка для скачивания
+1) Скачать zip архив https://drive.google.com/file/d/1Cxpkt6M5EY92EcWWHP_VQX7NpN4vHysD/view?usp=share_link
+2) Разархивировать
+3) Запустить parser.exe
 
-### General steps
+## Небольшой гайд
 
-1. Select site name from the menu
-2. Select one of the formats for transferring the task from the site to Edvibe
-3. Copy the HTML code and paste into the input window
-    * Open devtools: press Ctrl+Shift+C or right mouse button and select Explore
-    * Select box HTML code according to instructions
-    * Copy the code that covers the job as much as possible
-    * Paste in input window
-4. Press Input. You will receive a text in accordance with your task.
+### Основные шаги
+
+1. Выберите название сайта в меню.
+2. Выберите один из типов задания для переноса материала с сайта на Edvibe.
+3. Скопируйте HTML-код и вставьте в окно ввода.
+   * Откройте devtools, а именно нажмите `Ctrl+Shift+C` или правую кнопку мыши и выберите Исследовать.
+   * Выберите блок HTML-кода в соответствии с инструкциями.
+   * Скопируйте код, который максимально полно описывает задание.
+   * Вставить в окно ввода.
+4. Нажмите кнопку _Input_. Вы получите текст в соответствии с вашим заданием.
 
 ---
 
-* Appropriate actions are required for each site and mode.
-* Select the entire block as follows. Press Ctrl+Shift+C or right mouse button and select Explore
-* You have open devtools with HTML code
+* Для каждого сайта и типа задания требуются соответствующие действия.
+* Копировать блок html следует также как в видео, однако блоки html разметки на сайтах разные.
+* Вы должны открыть devtools с HTML-кодом `Ctrl+Shift+C` или правой кнопкой мыши, выбрать `Исследовать`.
 
-## Video Instruction
+## Краткая видео-инструкция
 
-* https://drive.google.com/file/d/18ylkxTWSF1tfmrYhSwSNUZfQaJt1kCmb/view?usp=sharing
+https://drive.google.com/file/d/18ylkxTWSF1tfmrYhSwSNUZfQaJt1kCmb/view?usp=sharing
 
 ## Skyeng
 
 ### Choose the correct option
 
-- Open site
-- Select all correct option
-- Copy block outerHTML as in the picture and insert in open input-window
-- Enter *Input* and get result
+- Откройте сайт.
+- Выберите все правильные ответы.
+- Скопируйте блок outerHTML, как на картинке, и вставьте в открытое окно ввода.
+- Нажмите *Input* и получите результат.
 
 ![Skyeng](example/skyeng/Skyeng%201.choose_the_correct_option.png "choose_the_correct_option")
 
@@ -73,10 +79,10 @@ ___
 
 ### Choose the correct option from test
 
-- Open site
-- Select all correct option in __test__
-- Copy block outerHTML as in the picture and insert in open input-window
-- Enter *Input* and get result
+- Откройте сайт.
+- Выберите все правильные ответы в __test__.
+- Скопируйте блок outerHTML, как на картинке, и вставьте в открытое окно ввода.
+- Нажмите *Input* и получите результат.
 
 ![Skyeng](example/skyeng/Skyeng%202.choose_the_correct_option_from_test.png "choose_the_correct_option_from_test")
 
@@ -84,23 +90,24 @@ ___
 
 ### Fill the gaps
 
-- Open site
-- Insert all the correct words from possible
-- Copy block outerHTML as in the picture and insert in open input-window
-- Enter *Input* and get result
-  ![Skyeng](example/skyeng/Skyeng%203.fill_the_gaps.png "fill_the_gaps")
+- Откройте сайт.
+- Вставьте все правильные слова из возможных.
+- Скопируйте блок outerHTML, как на картинке, и вставьте в открытое окно ввода.
+- Нажмите *Input* и получите результат.
+
+![Skyeng](example/skyeng/Skyeng%203.fill_the_gaps.png "fill_the_gaps")
 
 ___
 
 ### Type the correct answer
 
-- Open site
-- Write or better hover over the word with the correct answer. click on the right mouse button - then the correct word
-  will be fixed and will not run away. copy the correct text and paste it into the pass.
-  If these operations take longer than you would have done yourself, then ignore this mode.
-  However, if the text is very large, then the first option is preferable
-- Copy block outerHTML as in the picture and insert in open input-window
-- Enter *Input* and get result
+- Откройте сайт.
+- Напишите или лучше наведите курсор на слово с правильным ответом. Далее, нажмите на правую кнопку мыши - тогда 
+правильное слово закрепится и никуда не убежит. Скопируйте правильный текст и вставьте его в пропуск.
+Если эти операции занимают больше времени, чем вы бы выполнили сами, то игнорируйте этот совет. Однако, если текст 
+очень большой, то предпочтительнее первый вариант.
+- Скопируйте блок outerHTML, как на картинке, и вставьте в открытое окно ввода.
+- Нажмите *Input* и получите результат.
 
 ![Skyeng](example/skyeng/Skyeng%204.type_the_correct_answer.png "type_the_correct_answer")
 
@@ -108,11 +115,11 @@ ___
 
 ### Match words
 
-- Open site
-- Match all the correct words
-- Copy block outerHTML as in the picture and insert in open input-window
-- Enter *Input* and get result
-- If you get not full words, try to take a bigger piece of code HTML
+- Откройте сайт.
+- Соотнесите все правильные слова.
+- Скопируйте блок outerHTML, как на картинке, и вставьте в открытое окно ввода.
+- Нажмите *Input* и получите результат.
+- Если вы получаете не полные слова, попробуйте взять больший фрагмент кода HTML.
 
 ![Skyeng](example/skyeng/Skyeng%205.match_words.png "match_words")
 
@@ -122,12 +129,12 @@ ___
 
 ### Choose the correct option
 
-- Open site
-- __NOT__ Select correct option
-- Copy block outerHTML as in the picture and insert in open input-window
-- Enter *Input* and get result
-- You get correct template for Edvibe without an `*`.
-  You will need to mark the correct answers with an `*` yourself
+- Откройте сайт.
+- __НЕ__ выбирайте правильный вариант.
+- Скопируйте блок outerHTML, как на картинке, и вставьте в открытое окно ввода.
+- Нажмите *Input* и получите результат.
+- Вы получаете правильный шаблон для Edvibe без `*`. 
+Вам нужно будет самостоятельно отметить правильные ответы знаком `*`.
 
 ![TestEnglish](example/test_english/TestEnglish%201.choose_the_correct_option.png "choose_the_correct_option")
 
@@ -135,11 +142,11 @@ ___
 
 ### Choose from test
 
-- Open site
-- Click `Next Page`, click `Check answer`
-- Copy block outerHTML as in the picture and insert in open input-window
-- Need copy all code HTML
-- Enter *Input* and get result
+1. Откройте сайт.
+2. Кликните `Next Page`,далее кликните `Check answer`.
+3. Скопируйте блок outerHTML, как на картинке, и вставьте в открытое окно ввода.
+4. Нужно скопировать весь HTML-код как на картинке.
+5. Нажмите *Input* и получите результат.
 
 ![TestEnglish](example/test_english/TestEnglish%202.1.choose_from_test.png "choose_from_test")
 ![TestEnglish](example/test_english/TestEnglish%202.2.choose_from_test.png "choose_from_test")
@@ -148,11 +155,11 @@ ___
 
 ### Type the correct answer
 
-- Open site
-- Click `Next Page` or click `Check answer`
-- Copy block outerHTML as in the picture and insert in open input-window
-- Need copy all code HTML
-- Enter *Input* and get result
+- Откройте сайт.
+- Кликните `Next Page`, далее кликните `Check answer`.
+- Скопируйте блок outerHTML, как на картинке, и вставьте в открытое окно ввода.
+- Нужно скопировать весь HTML-код.
+- Нажмите *Input* и получите результат.
 
 ![TestEnglish](example/test_english/TestEnglish%203.1.type_the_correct_answer.png "type_the_correct_answer")
 ![TestEnglish](example/test_english/TestEnglish%203.2.type_the_correct_answer.png "type_the_correct_answer")
@@ -163,19 +170,19 @@ ___
 
 ### Choose the correct option
 
-- Open site
-- Copy link. Example: `https://www.englisch-hilfen.de/en/...`
-- Insert in open input-window
-- Enter *Input* and get result
+- Откройте сайт.
+- Скопируйте ссылку. Пример скопированной ссылки: `https://www.englisch-hilfen.de/en/...`.
+- Вставить в открытое окно ввода.
+- Нажмите *Input* и получите результат.
 
 ![Englisch-Hilfen](example/englisch-hilfen/englisch-hilfen%201.choose_the_correct_option.png "choose_the_correct_option")
 
 ### Type the correct answer
 
-- Open site
-- Click `Show answers`
-- Copy block outerHTML as in the picture and insert in open input-window
-- Enter *Input* and get result
+- Откройте сайт.
+- Кликните `Show answers`.
+- Скопируйте блок outerHTML, как на картинке, и вставьте в открытое окно ввода.
+- Нажмите *Input* и получите результат.
 
 ![Englisch-Hilfen](example/englisch-hilfen/englisch-hilfen%202.type_the_correct_answer.png "type_the_correct_answer")
 
@@ -185,9 +192,12 @@ ___
 
 ### Type the correct answer
 
-- Open site
-- Click `Show` for __all__ words
-- Copy block outerHTML as in the picture and insert in open input-window
-- Enter *Input* and get result
+- Откройте сайт.
+- Кликните `Show` для __всех__ слов.
+- Скопируйте блок outerHTML, как на картинке, и вставьте в открытое окно ввода.
+- Нажмите *Input* и получите результат.
+
 
 ![Perfect-English](example/perfect-english/Perfect-English%201.type_the_correct_answer.png "type_the_correct_option")
+
+---
