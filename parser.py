@@ -59,7 +59,7 @@ class Skyeng:
             return 'This is not HTML code'
 
         soup = BeautifulSoup(html_doc, 'lxml')
-        result = str()
+        result = []
         count = 0
 
         bs4_tag = find_bs4_tag(soup)
@@ -90,16 +90,16 @@ class Skyeng:
                 line = re.sub(r'#+', ' [%s]' % '/'.join(new_items), line, 1)
 
             line = filter_line(line)
-            result += '%s) %s\n' % (count, line)
+            result.append('%s) %s\n' % (count, line))
 
-        return get_result(result, 'Empty html, not correct html markdown or is it not choose_the_correct_option task.')
+        return get_result(''.join(result), 'Empty html, not correct html markdown or is it not choose_the_correct_option task.')
 
     def feel_the_gaps(self, html_doc):
         if not valid_html(html_doc):
             return 'This is not HTML code'
 
         soup = BeautifulSoup(html_doc, 'lxml')
-        result = str()
+        result = []
         count = 0
 
         bs4_tag = find_bs4_tag(soup)
@@ -117,17 +117,17 @@ class Skyeng:
             line = filter_line(line)
 
             if bs4_tag == 'li':
-                result += '%s) %s\n' % (count, line)
+                result.append('%s) %s\n' % (count, line))
             else:
-                result += '%s\n' % line
-        return get_result(result, 'Empty html, not correct html markdown or is it not feel_the_gaps task.')
+                result.append('%s\n' % line)
+        return get_result(''.join(result), 'Empty html, not correct html markdown or is it not feel_the_gaps task.')
 
     def type_the_correct_answer(self, html_doc):
         if not valid_html(html_doc):
             return 'This is not HTML code'
 
         soup = BeautifulSoup(html_doc, 'lxml')
-        result = str()
+        result = []
         count = 0
 
         bs4_tag = find_bs4_tag(soup)
@@ -145,15 +145,15 @@ class Skyeng:
             line = BeautifulSoup(r, 'lxml').get_text()
             line = filter_line(line)
             if bs4_tag == 'li':
-                result += '%s) %s\n' % (count, line)
+                result.append('%s) %s\n' % (count, line))
             else:
-                result += '%s\n' % line
+                result.append('%s\n' % line)
 
-        return get_result(result, 'Empty html, not correct html markdown or is it not type_the_correct_answer task.')
+        return get_result(''.join(result), 'Empty html, not correct html markdown or is it not type_the_correct_answer task.')
 
     def match(self, html):
         def find_row(tag):
-            px = re.search('translateY\((\w*?)px\)', tag['style']).group(1)
+            px = re.search(r'translateY\((\w*?)px\)', tag['style']).group(1)
             if int(px) not in sort_items:
                 sort_items.append(int(px))
 
@@ -165,9 +165,9 @@ class Skyeng:
         if not valid_html(html):
             return 'This is not HTML code'
         soup = BeautifulSoup(html, 'lxml')
-        result = str()
-        data = dict()
-        sort_items = list()
+        result = []
+        data = {}
+        sort_items = []
 
         box = soup.find('div', 'container -two-columns')
         for w in box.find_all('div', 'item ng-star-inserted animated success'):
@@ -181,8 +181,8 @@ class Skyeng:
             a, b = data[s]
             line = '%s\t%s' % (a.get_text(), b.get_text())
             line = filter_line(line)
-            result += line + '\n'
-        return get_result(result, 'Empty html, not correct html markdown or is it not match_words task.')
+            result.append(line + '\n')
+        return get_result(''.join(result), 'Empty html, not correct html markdown or is it not match_words task.')
 
     def choose_from_test(self, html):
         if not valid_html(html):
@@ -190,18 +190,21 @@ class Skyeng:
 
         soup = BeautifulSoup(html, 'lxml')
         box = soup.find('ol', 'questions')
-        result = str()
+        result = []
         count = 0
         if box:
             for li in box.find_all('li', 'ng-star-inserted'):
                 count += 1
                 text = li.find('span', 'question-text-container').get_text()
-                a = '[%s]' % '/'.join(i.get_text() + '*' if i.find('span', 'answer -right') else i.get_text() for i in
-                                      li.find_all('vim-test-question-answer', 'question-answer ng-star-inserted'))
+
+                a = '[%s]' % '/'.join(
+                    i.get_text() + '*' if i.find('span', 'answer -right') else i.get_text()
+                    for i in li.find_all('vim-test-question-answer', 'question-answer ng-star-inserted')
+                )
                 line = text + a
                 line = filter_line(line)
-                result += '%s) %s\n' % (count, line)
-        return get_result(result, 'Empty html, not correct html markdown or is it not choose_from_test task.')
+                result.append('%s) %s\n' % (count, line))
+        return get_result(''.join(result), 'Empty html, not correct html markdown or is it not choose_from_test task.')
 
 
 class TestEnglish:
@@ -214,7 +217,7 @@ class TestEnglish:
         if not valid_html(html):
             return 'This is not HTML code'
         soup = BeautifulSoup(html, 'lxml')
-        result = str()
+        result = []
         count = 0
         for l in soup.find_all('div', 'question-content'):
             count += 1
@@ -233,14 +236,14 @@ class TestEnglish:
             line = filter_line(line)
 
             line = '%s) %s\n' % (count, line)
-            result += line
-        return get_result(result, 'Empty html, not correct html markdown or is it not choose_the_correct_option task.')
+            result.append(line)
+        return get_result(''.join(result), 'Empty html, not correct html markdown or is it not choose_the_correct_option task.')
 
     def type_the_correct_answer(self, html):
         if not valid_html(html):
             return 'This is not HTML code'
         soup = BeautifulSoup(html, 'lxml')
-        result = str()
+        result = []
         count = 0
         for l in soup.find_all('div', 'show-question-content'):
             count += 1
@@ -261,7 +264,7 @@ class TestEnglish:
 
             tag = find_answers.find_all('font', color='#50af31') or find_answers.find_all('span',
                                                                                           style='color: #50af31;')
-            answer_list = list()
+            answer_list = []
             for a in tag:
                 slash = a.get_text().partition(':')[-1]
                 if slash.find('/') != -1:
@@ -287,14 +290,14 @@ class TestEnglish:
             # clear line
             sub_line = filter_line(sub_line)
             sub_line = sub_line.replace('\xa0', '')
-            result += '%s) %s\n' % (count, sub_line)
-        return get_result(result, 'Empty html, not correct html markdown or it is not type_the_correct_answer task.')
+            result.append('%s) %s\n' % (count, sub_line))
+        return get_result(''.join(result), 'Empty html, not correct html markdown or it is not type_the_correct_answer task.')
 
     def choose_from_test(self, html):
         if not valid_html(html):
             return 'This is not HTML code'
         count = 0
-        result = str()
+        result = []
         soup = BeautifulSoup(html, 'lxml')
         for l in soup.find_all('div',
                                'watupro-choices-columns show-question watupro-unresolved watupro-unanswered-question'):
@@ -329,8 +332,8 @@ class TestEnglish:
 
             line = BeautifulSoup(line, 'lxml').get_text()
             line = filter_line(line)
-            result += '%s) %s\n' % (count, line)
-        return get_result(result, 'Empty html, not correct html markdown or it is not choose_from_test task.')
+            result.append('%s) %s\n' % (count, line))
+        return get_result(''.join(result), 'Empty html, not correct html markdown or it is not choose_from_test task.')
 
 
 class EnglischHilfen:
@@ -340,7 +343,7 @@ class EnglischHilfen:
     color = 'cyan'
 
     def choose_the_correct_option(self, url):
-        result = str()
+        result = []
         url = url.rstrip('\n')
         try:
             r = requests.get(url)
@@ -367,8 +370,8 @@ class EnglischHilfen:
                 # clear line
                 r = re.sub(r'\t|\n| {2,}', '', r)
                 line = BeautifulSoup(r, 'lxml').get_text()
-                result += '%s) %s\n' % (count, line)
-        return get_result(result, 'Empty link line, not correct link or it is not choose_the_correct_option task.')
+                result.append('%s) %s\n' % (count, line))
+        return get_result(''.join(result), 'Empty link line, not correct link or it is not choose_the_correct_option task.')
 
     def type_the_correct_answer(self, html):
         if not valid_html(html):
@@ -376,7 +379,7 @@ class EnglischHilfen:
         soup = BeautifulSoup(html, 'lxml')
         box = soup.find('ol', 'tasks')
         count = 0
-        result = str()
+        result = []
         if box:
             for li in box.find_all('li', 'correct'):
                 count += 1
@@ -386,8 +389,8 @@ class EnglischHilfen:
                 # clear trash
                 r = re.sub(r'\n|\t| {2,}', '', r)
                 line = BeautifulSoup(r, 'lxml').get_text()
-                result += '%s) %s\n' % (count, line)
-        return get_result(result, 'Empty html, not correct html markdown or it is not type_the_correct_answer task.')
+                result.append('%s) %s\n' % (count, line))
+        return get_result(''.join(result), 'Empty html, not correct html markdown or it is not type_the_correct_answer task.')
 
 
 class PerfectEnglishGrammar:
@@ -401,7 +404,7 @@ class PerfectEnglishGrammar:
             return 'This is not HTML code'
         soup = BeautifulSoup(html, 'lxml')
         box = soup.find('div', id='exercise')
-        result = str()
+        result = []
         if box:
             for tr in box.find_all('td'):
                 if tr.button:
@@ -432,8 +435,8 @@ class PerfectEnglishGrammar:
 
                 line = BeautifulSoup(r, 'lxml').get_text()
                 line = filter_line(line)
-                result += line + '\n'
-        return get_result(result, 'Empty html, not correct html markdown or it is not type_the_correct_answer task.')
+                result.append(line + '\n')
+        return get_result(''.join(result), 'Empty html, not correct html markdown or it is not type_the_correct_answer task.')
 
 
 class App:
@@ -520,7 +523,9 @@ class App:
         self.lbl.pack(side=LEFT)
         self.user_buttons = (self.btn_task1, self.btn_task2, self.btn_task3, self.btn_task4, self.btn_task5)
 
-        [user_b.pack(side=LEFT) for user_b in self.user_buttons if user_b]
+        for user_b in self.user_buttons:
+            if user_b:
+                user_b.pack(side=LEFT)
 
         self.f2.pack()
         self.txt_input.pack()
@@ -528,7 +533,9 @@ class App:
         self.f3.pack()
         self.gui_buttons = (self.btn_clear, self.btn_paste, self.btn_input, self.btn_copy,)
 
-        [gui_b.pack(side=LEFT) for gui_b in self.gui_buttons if gui_b]
+        for gui_b in self.gui_buttons:
+            if gui_b:
+                gui_b.pack(side=LEFT)
 
         self.f4.pack()
         self.txt_output.pack()
@@ -536,12 +543,14 @@ class App:
         App.frames = [self.f1, self.f2, self.f3, self.f4]
 
     def create_handler(self, handler, mode):
-        [f.destroy() for f in App.frames]
+        for f in App.frames:
+            f.destroy()
         self.handler = handler
         App.mode = mode
 
     def create_empty_buttons(self, *pack):
-        for b in pack: self.__dict__[b] = None
+        for b in pack:
+            self.__dict__[b] = None
 
     def input_text(self):
         self.txt_output.delete('1.0', END)
