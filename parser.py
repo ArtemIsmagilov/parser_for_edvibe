@@ -8,6 +8,8 @@ import requests
 from PIL import ImageTk, Image
 from bs4 import BeautifulSoup
 
+from compile_reg_consts import PATTERN1, PATTERN2, PATTERN3, PATTERN4, PATTERN5, PATTERN6, PATTERN7, PATTERN8
+
 
 def get_result(res, text):
     if res:
@@ -37,7 +39,7 @@ def create_image(path, size):
 
 
 def filter_line(text):
-    text = re.sub(r" {2,}|\n", "", text)
+    text = PATTERN1.sub("", text)
     return text
 
 
@@ -77,14 +79,10 @@ class Skyeng:
             if not t.get_text().replace("\n", ""):
                 continue
 
-            r = str(t)
+            r = f"{t}"
             for v in t.find_all("vim-select-item-title"):
-                repl = re.sub(
-                    r"<vim-select-item-title.+</vim-select-item-title>",
-                    "<vim-select-item-title>#</vim-select-item-title>",
-                    str(v),
-                )
-                r = r.replace(str(v), repl)
+                repl = PATTERN2.sub("<vim-select-item-title>#</vim-select-item-title>", f"{v}")
+                r = r.replace(f"{v}", repl)
             line = BeautifulSoup(r, "lxml").get_text()
             for ans in t.find_all("button"):
                 new_items = [
@@ -99,7 +97,7 @@ class Skyeng:
                     return "Empty answer options. Choose the correct answer options in Skyeng, then try again."
                 new_items[index] = correct + "*"
                 random.shuffle(new_items)
-                line = re.sub(r"#+", " [%s]" % "/".join(new_items), line, 1)
+                line = PATTERN3.sub(" [%s]" % "/".join(new_items), line, 1)
 
             line = filter_line(line)
             result.append("%s) %s\n" % (count, line))
@@ -121,9 +119,9 @@ class Skyeng:
             if not t.get_text().replace("\n", ""):
                 continue
 
-            r = str(t)
+            r = f"{t}"
             for a in t.find_all("span", "answer-text"):
-                r = re.sub(str(a), f"<vals>[{a}]</vals>", r)
+                r = re.sub(f"{a}", f"<vals>[{a}]</vals>", r)
             line = BeautifulSoup(r, "lxml").get_text()
 
             line = filter_line(line)
@@ -146,12 +144,12 @@ class Skyeng:
         for count, t in enumerate(soup.find_all(bs4_tag), 1):
             if not t.get_text().replace("\n", ""):
                 continue
-            r = str(t)
+            r = f"{t}"
             for inp in t.find_all("span", "input"):
                 hints = inp.get("placeholder", "").replace("/", ";")
                 right_answers = inp.get_text()
                 new_html = "<vals>[%s/%s]</vals>" % (hints, right_answers)
-                r = re.sub(str(inp), new_html, r, 1).replace("\n", "")
+                r = re.sub(f"{inp}", new_html, r, 1).replace("\n", "")
             line = BeautifulSoup(r, "lxml").get_text()
             line = filter_line(line)
             if bs4_tag == "li":
@@ -165,7 +163,7 @@ class Skyeng:
 
     def match(self, html):
         def find_row(tag):
-            px = re.search(r"translateY\((\w*?)px\)", tag["style"]).group(1)
+            px = PATTERN4.search(tag["style"]).group(1)
             if int(px) not in sort_items:
                 sort_items.append(int(px))
 
@@ -189,8 +187,7 @@ class Skyeng:
             find_row(w)
 
         for s in sorted(sort_items):
-            s = str(s)
-            a, b = data[s]
+            a, b = data[f"{s}"]
             line = "%s\t%s" % (a.get_text(), b.get_text())
             line = filter_line(line)
             result.append(line + "\n")
@@ -230,17 +227,17 @@ class TestEnglish:
         soup = BeautifulSoup(html, "lxml")
         result = []
         for count, l in enumerate(soup.find_all("div", "question-content"), 1):
-            line = str(l)
+            line = f"{l}"
             # delete span tag
             sn1 = l.find("span", "watupro_num")
-            line = re.sub(str(sn1), "", line)
+            line = re.sub(f"{sn1}", "", line)
             # delete span numBox
             for sn2 in l.find_all("span", "numBox"):
-                line = line.replace(str(sn2), "")
+                line = line.replace(f"{sn2}", "")
             # select answers and replace empty selects tags
             for s in l.find_all("select"):
                 pattern = "[%s]" % "/".join(o["value"].strip() for o in s.find_all("option") if o["value"])
-                line = re.sub(str(s), pattern, line)
+                line = re.sub(f"{s}", pattern, line)
 
             line = BeautifulSoup(line, "lxml").get_text()
             line = filter_line(line)
@@ -257,10 +254,10 @@ class TestEnglish:
         soup = BeautifulSoup(html, "lxml")
         result = []
         for count, l in enumerate(soup.find_all("div", "show-question-content"), 1):
-            r = str(l)
+            r = f"{l}"
             # del nums
             for s in l.find_all("span", "watupro_num"):
-                r = r.replace(str(s), "")
+                r = r.replace(f"{s}", "")
             # find hints
             hints = re.findall(r"\(.*?\)", r)
 
@@ -281,7 +278,7 @@ class TestEnglish:
                 if slash.find("/") != -1:
                     answer_list.extend(slash.split("/"))
                 elif slash.find(" (") != -1:
-                    search_brackets = re.search(r"\((.*?)\)", slash)
+                    search_brackets = PATTERN5.search(slash)
                     slash_answer = slash.partition("(")[0]
                     answer_list.append("%s/%s" % (slash_answer, search_brackets.group(1)))
                 else:
@@ -296,7 +293,7 @@ class TestEnglish:
                 r = r.replace("[no answer]", pattern, 1)
 
             for sn2 in l.find_all("span", "numBox"):
-                r = r.replace(str(sn2), "")
+                r = r.replace(f"{sn2}", "")
             # simple correcting text
             sub_line = BeautifulSoup(r, "lxml").get_text()
             # clear line
@@ -318,10 +315,10 @@ class TestEnglish:
             ),
             1,
         ):
-            r = str(l)
+            r = f"{l}"
 
-            r = re.sub(str(l.find("div", "watupro-screen-reader")), "", r)
-            r = re.sub(str(l.find("span", "highlighter")), "", r)
+            r = re.sub(f'{l.find("div", "watupro-screen-reader")}', "", r)
+            r = re.sub(f'{l.find("span", "highlighter")}', "", r)
 
             l = BeautifulSoup(r, "lxml")
             answers = l.find_all("li", "answer correct-answer")
@@ -337,11 +334,11 @@ class TestEnglish:
             pattern = "[%s]" % "/".join(pattern)
             line = l.find("div", "show-question-content")
             sp = l.find("span", "watupro_num")
-            line = re.sub(str(sp), "", str(line))
-            if len(re.findall(r"(_{4,})+?", line)) > 1:
+            line = re.sub(f"{sp}", "", f"{line}")
+            if len(PATTERN6.findall(line)) > 1:
                 line += pattern
             else:
-                line = re.sub(r"(_{4,})+?", pattern, line)
+                line = PATTERN6.sub(pattern, line)
                 # line += pattern
             # clear trash
 
@@ -374,7 +371,7 @@ class EnglischHilfen:
         box = soup.find("ol", "tasks")
         if box:
             for count, li in enumerate(box.find_all("li"), 1):
-                r = str(li)
+                r = f"{li}"
                 answers = []
                 for s in li.find_all("select"):
                     a = "[%s]" % "/".join(
@@ -383,7 +380,7 @@ class EnglischHilfen:
                     answers.append(a)
                     r = re.sub(str(s), a, r)
                 # clear line
-                r = re.sub(r"\t|\n| {2,}", "", r)
+                r = PATTERN7.sub("", r)
                 line = BeautifulSoup(r, "lxml").get_text()
                 result.append("%s) %s\n" % (count, line))
         return get_result(
@@ -398,11 +395,11 @@ class EnglischHilfen:
         result = []
         if box:
             for count, li in enumerate(box.find_all("li", "correct"), 1):
-                r = str(li)
+                r = f"{li}"
                 for a in li.find_all("span", "correct-input"):
-                    r = re.sub(str(a), "[/%s]" % a.get_text(), r)
+                    r = re.sub(f"{a}", "[/%s]" % a.get_text(), r)
                 # clear trash
-                r = re.sub(r"\n|\t| {2,}", "", r)
+                r = PATTERN7.sub("", r)
                 line = BeautifulSoup(r, "lxml").get_text()
                 result.append("%s) %s\n" % (count, line))
         return get_result(
@@ -427,16 +424,16 @@ class PerfectEnglishGrammar:
             for tr in box.find_all("td"):
                 if tr.button:
                     continue
-                r = str(tr)
+                r = f"tr"
                 hints = []
                 answers = []
                 for i in tr.find_all("span", "textPart"):
-                    hint = re.search(r"\(.*?\)", str(i))
+                    hint = PATTERN8.search(f"{i}")
                     if hint:
                         hints.append(hint.group(0)[1:-1].replace("/", ";"))
                         r = r.replace(hint.group(0), "")
                 for i in tr.find_all("span", style="color: rgb(28, 97, 99); padding: 1px;"):
-                    r = r.replace(str(i), "")
+                    r = r.replace(f"{i}", "")
                     answers.append(i.get_text()[1:-1].strip())
 
                 for d in tr.find_all("input"):
@@ -446,10 +443,10 @@ class PerfectEnglishGrammar:
                     else:
                         h = ""
                     pattern = "[%s/%s]" % (h, a)
-                    r = r.replace(str(d), pattern, 1)
+                    r = r.replace(f"{d}", pattern, 1)
 
                 # clear
-                r = re.sub(r"\n|\t| {2,}", "", r)
+                r = PATTERN7.sub("", r)
 
                 line = BeautifulSoup(r, "lxml").get_text()
                 line = filter_line(line)
