@@ -16,14 +16,7 @@ def get_result(res, text):
 
 
 def get_tk_img():
-    ks = (
-        "menu",
-        "skyeng",
-        "testenglish",
-        "englisch-hilfen",
-        "perfect_english_grammar",
-        "exit",
-    )
+    ks = ("menu", "skyeng", "testenglish", "englisch-hilfen", "perfect_english_grammar", "exit")
     vs = (
         ("imgs/menu.png", (50, 50)),
         ("imgs/skyeng.png", (100, 40)),
@@ -112,8 +105,7 @@ class Skyeng:
             result.append("%s) %s\n" % (count, line))
 
         return get_result(
-            "".join(result),
-            "Empty html, not correct html markdown or is it not choose_the_correct_option task.",
+            "".join(result), "Empty html, not correct html markdown or is it not choose_the_correct_option task."
         )
 
     def feel_the_gaps(self, html_doc):
@@ -140,10 +132,7 @@ class Skyeng:
                 result.append("%s) %s\n" % (count, line))
             else:
                 result.append("%s\n" % line)
-        return get_result(
-            "".join(result),
-            "Empty html, not correct html markdown or is it not feel_the_gaps task.",
-        )
+        return get_result("".join(result), "Empty html, not correct html markdown or is it not feel_the_gaps task.")
 
     def type_the_correct_answer(self, html_doc):
         if not valid_html(html_doc):
@@ -171,8 +160,7 @@ class Skyeng:
                 result.append("%s\n" % line)
 
         return get_result(
-            "".join(result),
-            "Empty html, not correct html markdown or is it not type_the_correct_answer task.",
+            "".join(result), "Empty html, not correct html markdown or is it not type_the_correct_answer task."
         )
 
     def match(self, html):
@@ -197,9 +185,7 @@ class Skyeng:
         for w in box.find_all("div", "item ng-star-inserted animated success"):
             find_row(w)
 
-        for w in box.find_all(
-            "div", "item -dot-left ng-star-inserted animated success"
-        ):
+        for w in box.find_all("div", "item -dot-left ng-star-inserted animated success"):
             find_row(w)
 
         for s in sorted(sort_items):
@@ -208,10 +194,7 @@ class Skyeng:
             line = "%s\t%s" % (a.get_text(), b.get_text())
             line = filter_line(line)
             result.append(line + "\n")
-        return get_result(
-            "".join(result),
-            "Empty html, not correct html markdown or is it not match_words task.",
-        )
+        return get_result("".join(result), "Empty html, not correct html markdown or is it not match_words task.")
 
     def choose_from_test(self, html):
         if not valid_html(html):
@@ -225,20 +208,13 @@ class Skyeng:
                 text = li.find("span", "question-text-container").get_text()
 
                 a = "[%s]" % "/".join(
-                    i.get_text() + "*"
-                    if i.find("span", "answer -right")
-                    else i.get_text()
-                    for i in li.find_all(
-                        "vim-test-question-answer", "question-answer ng-star-inserted"
-                    )
+                    i.get_text() + "*" if i.find("span", "answer -right") else i.get_text()
+                    for i in li.find_all("vim-test-question-answer", "question-answer ng-star-inserted")
                 )
                 line = text + a
                 line = filter_line(line)
                 result.append("%s) %s\n" % (count, line))
-        return get_result(
-            "".join(result),
-            "Empty html, not correct html markdown or is it not choose_from_test task.",
-        )
+        return get_result("".join(result), "Empty html, not correct html markdown or is it not choose_from_test task.")
 
 
 class TestEnglish:
@@ -263,9 +239,7 @@ class TestEnglish:
                 line = line.replace(str(sn2), "")
             # select answers and replace empty selects tags
             for s in l.find_all("select"):
-                pattern = "[%s]" % "/".join(
-                    o["value"].strip() for o in s.find_all("option") if o["value"]
-                )
+                pattern = "[%s]" % "/".join(o["value"].strip() for o in s.find_all("option") if o["value"])
                 line = re.sub(str(s), pattern, line)
 
             line = BeautifulSoup(line, "lxml").get_text()
@@ -274,8 +248,7 @@ class TestEnglish:
             line = "%s) %s\n" % (count, line)
             result.append(line)
         return get_result(
-            "".join(result),
-            "Empty html, not correct html markdown or is it not choose_the_correct_option task.",
+            "".join(result), "Empty html, not correct html markdown or is it not choose_the_correct_option task."
         )
 
     def type_the_correct_answer(self, html):
@@ -299,9 +272,9 @@ class TestEnglish:
             find_answers = l.parent.find("div", "watupro-main-feedback")
             # error AttributeError: 'NoneType' object has no attribute 'find_all'
 
-            tag = find_answers.find_all(
-                "font", color="#50af31"
-            ) or find_answers.find_all("span", style="color: #50af31;")
+            tag = find_answers.find_all("font", color="#50af31") or find_answers.find_all(
+                "span", style="color: #50af31;"
+            )
             answer_list = []
             for a in tag:
                 slash = a.get_text().partition(":")[-1]
@@ -310,9 +283,7 @@ class TestEnglish:
                 elif slash.find(" (") != -1:
                     search_brackets = re.search(r"\((.*?)\)", slash)
                     slash_answer = slash.partition("(")[0]
-                    answer_list.append(
-                        "%s/%s" % (slash_answer, search_brackets.group(1))
-                    )
+                    answer_list.append("%s/%s" % (slash_answer, search_brackets.group(1)))
                 else:
                     answer_list.append(slash)
             # replace answers
@@ -333,8 +304,7 @@ class TestEnglish:
             sub_line = sub_line.replace("\xa0", "")
             result.append("%s) %s\n" % (count, sub_line))
         return get_result(
-            "".join(result),
-            "Empty html, not correct html markdown or it is not type_the_correct_answer task.",
+            "".join(result), "Empty html, not correct html markdown or it is not type_the_correct_answer task."
         )
 
     def choose_from_test(self, html):
@@ -344,8 +314,7 @@ class TestEnglish:
         soup = BeautifulSoup(html, "lxml")
         for count, l in enumerate(
             soup.find_all(
-                "div",
-                "watupro-choices-columns show-question watupro-unresolved watupro-unanswered-question",
+                "div", "watupro-choices-columns show-question watupro-unresolved watupro-unanswered-question"
             ),
             1,
         ):
@@ -379,10 +348,7 @@ class TestEnglish:
             line = BeautifulSoup(line, "lxml").get_text()
             line = filter_line(line)
             result.append("%s) %s\n" % (count, line))
-        return get_result(
-            "".join(result),
-            "Empty html, not correct html markdown or it is not choose_from_test task.",
-        )
+        return get_result("".join(result), "Empty html, not correct html markdown or it is not choose_from_test task.")
 
 
 class EnglischHilfen:
@@ -400,9 +366,7 @@ class EnglischHilfen:
         except requests.exceptions.ConnectionError as connect_err:
             return "There is no internet connection"
         except requests.exceptions.MissingSchema as input_err:
-            return (
-                f"Incorrect link - {url[:50]}... Please, insert correct link from site."
-            )
+            return f"Incorrect link - {url[:50]}... Please, insert correct link from site."
         except requests.exceptions.InvalidSchema as big_text_input:
             return f"Please, insert correct link from site. You insert : {url[:50]}..."
         html = r.text
@@ -414,9 +378,7 @@ class EnglischHilfen:
                 answers = []
                 for s in li.find_all("select"):
                     a = "[%s]" % "/".join(
-                        o.get_text()
-                        for o in s.find_all("option")
-                        if re.sub(r"[\n ]", "", o.get_text())
+                        o.get_text() for o in s.find_all("option") if re.sub(r"[\n ]", "", o.get_text())
                     )
                     answers.append(a)
                     r = re.sub(str(s), a, r)
@@ -425,8 +387,7 @@ class EnglischHilfen:
                 line = BeautifulSoup(r, "lxml").get_text()
                 result.append("%s) %s\n" % (count, line))
         return get_result(
-            "".join(result),
-            "Empty link line, not correct link or it is not choose_the_correct_option task.",
+            "".join(result), "Empty link line, not correct link or it is not choose_the_correct_option task."
         )
 
     def type_the_correct_answer(self, html):
@@ -445,8 +406,7 @@ class EnglischHilfen:
                 line = BeautifulSoup(r, "lxml").get_text()
                 result.append("%s) %s\n" % (count, line))
         return get_result(
-            "".join(result),
-            "Empty html, not correct html markdown or it is not type_the_correct_answer task.",
+            "".join(result), "Empty html, not correct html markdown or it is not type_the_correct_answer task."
         )
 
 
@@ -475,9 +435,7 @@ class PerfectEnglishGrammar:
                     if hint:
                         hints.append(hint.group(0)[1:-1].replace("/", ";"))
                         r = r.replace(hint.group(0), "")
-                for i in tr.find_all(
-                    "span", style="color: rgb(28, 97, 99); padding: 1px;"
-                ):
+                for i in tr.find_all("span", style="color: rgb(28, 97, 99); padding: 1px;"):
                     r = r.replace(str(i), "")
                     answers.append(i.get_text()[1:-1].strip())
 
@@ -497,8 +455,7 @@ class PerfectEnglishGrammar:
                 line = filter_line(line)
                 result.append(line + "\n")
         return get_result(
-            "".join(result),
-            "Empty html, not correct html markdown or it is not type_the_correct_answer task.",
+            "".join(result), "Empty html, not correct html markdown or it is not type_the_correct_answer task."
         )
 
 
@@ -526,23 +483,12 @@ class App:
         self.mainmenu1.pack(anchor=NW)
         self.submenu1 = Menu(self.mainmenu1)
         self.mainmenu1.config(menu=self.submenu1)
+        self.submenu1.add_command(label="Skyeng", image=self.tk_imgs["skyeng"], compound=LEFT, command=self.skyeng)
         self.submenu1.add_command(
-            label="Skyeng",
-            image=self.tk_imgs["skyeng"],
-            compound=LEFT,
-            command=self.skyeng,
+            label="Test English", image=self.tk_imgs["testenglish"], compound=LEFT, command=self.test_english
         )
         self.submenu1.add_command(
-            label="Test English",
-            image=self.tk_imgs["testenglish"],
-            compound=LEFT,
-            command=self.test_english,
-        )
-        self.submenu1.add_command(
-            label="Englisch Hilfen",
-            image=self.tk_imgs["englisch-hilfen"],
-            compound=LEFT,
-            command=self.englisch_hilfen,
+            label="Englisch Hilfen", image=self.tk_imgs["englisch-hilfen"], compound=LEFT, command=self.englisch_hilfen
         )
         self.submenu1.add_command(
             label="Perfect English Grammar",
@@ -550,12 +496,7 @@ class App:
             compound=LEFT,
             command=self.perfect_english_grammar,
         )
-        self.submenu1.add_command(
-            label="Exit",
-            image=self.tk_imgs["exit"],
-            compound=LEFT,
-            command=self.root.quit,
-        )
+        self.submenu1.add_command(label="Exit", image=self.tk_imgs["exit"], compound=LEFT, command=self.root.quit)
 
         self.root.iconbitmap("imgs/click.ico")
 
@@ -593,9 +534,7 @@ class App:
         self.root.config(bg="wheat1")
 
         self.f2 = Frame(self.root)
-        self.txt_input = scrolledtext.ScrolledText(
-            self.f2, width=70, height=4, font="Times 15"
-        )
+        self.txt_input = scrolledtext.ScrolledText(self.f2, width=70, height=4, font="Times 15")
 
         self.f3 = Frame(self.root)
         self.btn_input = Button(self.f3, text="Input", command=self.input_text)
@@ -604,19 +543,11 @@ class App:
         self.btn_paste = Button(self.f3, text="Paste", command=self.paste_text)
 
         self.f4 = Frame(self.root)
-        self.txt_output = scrolledtext.ScrolledText(
-            self.f4, width=70, height=13, font="Times 15"
-        )
+        self.txt_output = scrolledtext.ScrolledText(self.f4, width=70, height=13, font="Times 15")
 
         self.f1.pack()
         self.lbl.pack(side=LEFT)
-        self.user_buttons = (
-            self.btn_task1,
-            self.btn_task2,
-            self.btn_task3,
-            self.btn_task4,
-            self.btn_task5,
-        )
+        self.user_buttons = (self.btn_task1, self.btn_task2, self.btn_task3, self.btn_task4, self.btn_task5)
 
         for user_b in self.user_buttons:
             if user_b:
@@ -626,12 +557,7 @@ class App:
         self.txt_input.pack()
 
         self.f3.pack()
-        self.gui_buttons = (
-            self.btn_clear,
-            self.btn_paste,
-            self.btn_input,
-            self.btn_copy,
-        )
+        self.gui_buttons = (self.btn_clear, self.btn_paste, self.btn_input, self.btn_copy)
 
         for gui_b in self.gui_buttons:
             if gui_b:
@@ -675,27 +601,11 @@ class App:
         self.f1 = Frame(self.root)
         self.lbl = Label(self.f1, image=self.tk_imgs["skyeng"])
 
-        self.btn_task1 = Button(
-            self.f1,
-            text="Choose the correct option",
-            bg=self.handler.color,
-            command=self.choosing,
-        )
-        self.btn_task2 = Button(
-            self.f1,
-            text="Choose... from test",
-            bg="white",
-            command=self.choosing_from_test,
-        )
-        self.btn_task3 = Button(
-            self.f1, text="Fill the gaps", bg="white", command=self.filling
-        )
-        self.btn_task4 = Button(
-            self.f1, text="Type the correct answer", bg="white", command=self.typing
-        )
-        self.btn_task5 = Button(
-            self.f1, text="Match words", bg="white", command=self.matching
-        )
+        self.btn_task1 = Button(self.f1, text="Choose the correct option", bg=self.handler.color, command=self.choosing)
+        self.btn_task2 = Button(self.f1, text="Choose... from test", bg="white", command=self.choosing_from_test)
+        self.btn_task3 = Button(self.f1, text="Fill the gaps", bg="white", command=self.filling)
+        self.btn_task4 = Button(self.f1, text="Type the correct answer", bg="white", command=self.typing)
+        self.btn_task5 = Button(self.f1, text="Match words", bg="white", command=self.matching)
 
         self.update_window()
 
@@ -704,25 +614,10 @@ class App:
 
         self.f1 = Frame(self.root)
         self.lbl = Label(self.f1, image=self.tk_imgs["testenglish"])
-        self.btn_task1 = Button(
-            self.f1,
-            text="Choose the correct option",
-            bg=self.handler.color,
-            command=self.choosing,
-        )
-        self.btn_task2 = Button(
-            self.f1,
-            text="Choose ...(from test)",
-            bg="white",
-            command=self.choosing_from_test,
-        )
-        self.btn_task4 = Button(
-            self.f1, text="Type the correct answer", bg="white", command=self.typing
-        )
-        self.create_empty_buttons(
-            "btn_task3",
-            "btn_task5",
-        )
+        self.btn_task1 = Button(self.f1, text="Choose the correct option", bg=self.handler.color, command=self.choosing)
+        self.btn_task2 = Button(self.f1, text="Choose ...(from test)", bg="white", command=self.choosing_from_test)
+        self.btn_task4 = Button(self.f1, text="Type the correct answer", bg="white", command=self.typing)
+        self.create_empty_buttons("btn_task3", "btn_task5")
 
         self.update_window()
 
@@ -731,36 +626,18 @@ class App:
 
         self.f1 = Frame(self.root)
         self.lbl = Label(self.f1, image=self.tk_imgs["englisch-hilfen"])
-        self.btn_task1 = Button(
-            self.f1,
-            text="Choose the correct option",
-            bg=self.handler.color,
-            command=self.choosing,
-        )
-        self.btn_task4 = Button(
-            self.f1, text="Type the correct answer", bg="white", command=self.typing
-        )
-        self.create_empty_buttons(
-            "btn_task2",
-            "btn_task3",
-            "btn_task5",
-        )
+        self.btn_task1 = Button(self.f1, text="Choose the correct option", bg=self.handler.color, command=self.choosing)
+        self.btn_task4 = Button(self.f1, text="Type the correct answer", bg="white", command=self.typing)
+        self.create_empty_buttons("btn_task2", "btn_task3", "btn_task5")
 
         self.update_window()
 
     def perfect_english_grammar(self):
-        self.create_handler(
-            PerfectEnglishGrammar, PerfectEnglishGrammar.type_the_correct_answer
-        )
+        self.create_handler(PerfectEnglishGrammar, PerfectEnglishGrammar.type_the_correct_answer)
 
         self.f1 = Frame(self.root)
         self.lbl = Label(self.f1, image=self.tk_imgs["perfect_english_grammar"])
-        self.btn_task4 = Button(
-            self.f1,
-            text="Type the correct answer",
-            bg=self.handler.color,
-            command=self.typing,
-        )
+        self.btn_task4 = Button(self.f1, text="Type the correct answer", bg=self.handler.color, command=self.typing)
 
         self.create_empty_buttons("btn_task1", "btn_task2", "btn_task3", "btn_task5")
 
